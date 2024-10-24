@@ -107,9 +107,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision){
-
-    }
 
     private bool isGrounded(){
         //Physics2D.BoxCast( origin of the box cast, the size of the box, the angle, direction of box cast, distance, layer)
@@ -126,5 +123,15 @@ public class PlayerMovement : MonoBehaviour
         //layer allows it to search only within that layer
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.01f, wallLayer);
         return raycastHit.collider != null;
+    }
+
+/*
+this function returns a true or false to see if the plaer can attack
+right now it checks if the player is not moving and is not on a wall
+to attack.
+*/
+    public bool canAttack()
+    {
+        return HorizontalInput == 0 && isGrounded() && onWall();
     }
 }
