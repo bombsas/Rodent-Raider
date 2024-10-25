@@ -357,7 +357,6 @@ GameObject:
   - component: {fileID: 1503719206}
   m_Layer: 6
   m_Name: ground
-  m_Name: Platform1
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,6 +487,7 @@ GameObject:
   - component: {fileID: 1834844786}
   - component: {fileID: 1834844789}
   - component: {fileID: 1834844790}
+  - component: {fileID: 1834844792}
   - component: {fileID: 1834844791}
   m_Layer: 0
   m_Name: Player
@@ -676,6 +676,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1834844792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834844785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebcc9d8c61431d45a522ea02d3a3df9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -34,7 +34,15 @@ public class PlayerMovement : MonoBehaviour
     */
     private void Update()
     {
-        HorizontalInput = Input.GetAxis("Horizontal");
+        // this line allows for wasd and arrow keys
+        //HorizontalInput = Input.GetAxis("Horizontal");
+        HorizontalInput = 0;
+        if(Input.GetKey(KeyCode.LeftArrow)){
+            HorizontalInput = -1;
+        }
+        if (Input.GetKey(KeyCode.RightArrow)){
+            HorizontalInput = 1;
+        }
         
 
         //flips player when moving left or right
@@ -57,9 +65,19 @@ public class PlayerMovement : MonoBehaviour
         // wall jump logic
         if (wallJumpCoolDown > 0.1f)
         {
-            
 
-            body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                HorizontalInput = -1;
+                body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                HorizontalInput = 1;
+                body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+            }
+            // this one line uses both wasd and arrow keys
+            //body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
 
             if(onWall() && !isGrounded())
             {
@@ -132,6 +150,6 @@ to attack.
 */
     public bool canAttack()
     {
-        return HorizontalInput == 0 && isGrounded() && onWall();
+        return HorizontalInput == 0 && isGrounded() && !onWall();
     }
 }

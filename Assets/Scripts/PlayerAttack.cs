@@ -16,16 +16,18 @@ public class PlayerAttack : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKey(KeyCode.A) && coolDownTimer > attackCooldown && playerMovement.canAttack())
+        if(Input.GetKey("a") && coolDownTimer > attackCooldown && playerMovement.canAttack())
         {
             Attack();
         }
+        
         coolDownTimer += Time.deltaTime;
     }
 
     private void Attack()
     {
-
+        anim.SetTrigger("attack");
+        coolDownTimer = 0;
     }
 
 }
