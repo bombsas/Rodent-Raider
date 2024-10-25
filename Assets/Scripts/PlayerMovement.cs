@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private float dashcount;
+    [SerializeField] private float dashcooldown;
+    [SerializeField] private float dashcooldownTime;
+    [SerializeField] private float dashSpeed;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -151,5 +155,9 @@ to attack.
     public bool canAttack()
     {
         return HorizontalInput == 0 && isGrounded() && !onWall();
+    }
+
+    private void Dash(){
+        
     }
 }
