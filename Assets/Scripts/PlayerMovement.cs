@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private float dashcount;
+    [SerializeField] private float dashcooldown;
+    [SerializeField] private float dashcooldownTime;
+    [SerializeField] private float dashSpeed;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -34,7 +38,15 @@ public class PlayerMovement : MonoBehaviour
     */
     private void Update()
     {
-        HorizontalInput = Input.GetAxis("Horizontal");
+        // this line allows for wasd and arrow keys
+        //HorizontalInput = Input.GetAxis("Horizontal");
+        HorizontalInput = 0;
+        if(Input.GetKey(KeyCode.LeftArrow)){
+            HorizontalInput = -1;
+        }
+        if (Input.GetKey(KeyCode.RightArrow)){
+            HorizontalInput = 1;
+        }
         
 
         //flips player when moving left or right
@@ -57,9 +69,19 @@ public class PlayerMovement : MonoBehaviour
         // wall jump logic
         if (wallJumpCoolDown > 0.1f)
         {
-            
 
-            body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                HorizontalInput = -1;
+                body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                HorizontalInput = 1;
+                body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+            }
+            // this one line uses both wasd and arrow keys
+            //body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
 
             if(onWall() && !isGrounded())
             {
@@ -107,9 +129,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision){
-
-    }
 
     private bool isGrounded(){
         //Physics2D.BoxCast( origin of the box cast, the size of the box, the angle, direction of box cast, distance, layer)
@@ -126,5 +145,19 @@ public class PlayerMovement : MonoBehaviour
         //layer allows it to search only within that layer
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.01f, wallLayer);
         return raycastHit.collider != null;
+    }
+
+/*
+this function returns a true or false to see if the plaer can attack
+right now it checks if the player is not moving and is not on a wall
+to attack.
+*/
+    public bool canAttack()
+    {
+        return HorizontalInput == 0 && isGrounded() && !onWall();
+    }
+
+    private void Dash(){
+        
     }
 }
