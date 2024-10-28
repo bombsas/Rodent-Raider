@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerFiring : MonoBehaviour
 {
-    [SerializeField]private float attackCooldown;
+    [SerializeField] private float attackCooldown;
     private Animator anim;
     private PlayerMovement playerMovement;
     private float coolDownTimer = Mathf.Infinity;
@@ -16,11 +16,11 @@ public class PlayerAttack : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKey("a") && coolDownTimer > attackCooldown && playerMovement.canAttack())
+        if (Input.GetKey("s") && coolDownTimer > attackCooldown && playerMovement.canAttack())
         {
             Attack();
         }
-        
+
         coolDownTimer += Time.deltaTime;
     }
 
