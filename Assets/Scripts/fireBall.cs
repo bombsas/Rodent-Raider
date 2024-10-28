@@ -7,6 +7,7 @@ public class FireBall : MonoBehaviour
     [SerializeField]private float speed;
     private float direction;
     private bool hit;
+    private float lifetime;
 
     private BoxCollider2D boxCollider;
     private Animator anim;
@@ -20,6 +21,8 @@ public class FireBall : MonoBehaviour
         if (hit) return;
         float movementSpeed = speed * Time.deltaTime * direction;
         transform.Translate(movementSpeed,0,0);
+        lifetime += Time.deltaTime;
+        if(lifetime >5) gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -30,6 +33,7 @@ public class FireBall : MonoBehaviour
     }
 
     public void SetDirection(float cur_direction) {
+        lifetime = 0;
         direction = cur_direction;
         gameObject.SetActive(true);
         hit = false;

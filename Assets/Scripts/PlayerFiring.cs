@@ -37,8 +37,17 @@ public class PlayerFiring : MonoBehaviour
         means multiple projectile objects are already created and they are just activated
         on use and deactived when finished and are reused. this is recomended when you are
         creating a lot of objects*/
-        Fireball[0].transform.position = firePoint.position;
-        Fireball[0].GetComponent<FireBall>().SetDirection(Mathf.Sign(transform.localScale.x));
+        Fireball[FindProjectile()].transform.position = firePoint.position;
+        Fireball[FindProjectile()].GetComponent<FireBall>().SetDirection(Mathf.Sign(transform.localScale.x));
     }
 
+    private int FindProjectile()
+    {
+        for (int i = 0;i < Fireball.Length; i++)
+        {
+            if (!Fireball[i].activeInHierarchy)
+            return i;
+        }
+        return 0;
+    }
 }
