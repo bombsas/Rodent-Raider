@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerFiring : MonoBehaviour
 {
-    [SerializeField]private float attackCooldown;
+    [SerializeField] private float attackCooldown;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject[] Fireball;
     private Animator anim;
     private PlayerMovement playerMovement;
     private float coolDownTimer = Mathf.Infinity;
@@ -16,11 +19,11 @@ public class PlayerAttack : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKey("a") && coolDownTimer > attackCooldown && playerMovement.canAttack())
+        if (Input.GetKey("s") && coolDownTimer > attackCooldown && playerMovement.canAttack())
         {
             Attack();
         }
-        
+
         coolDownTimer += Time.deltaTime;
     }
 
@@ -34,6 +37,17 @@ public class PlayerAttack : MonoBehaviour
         means multiple projectile objects are already created and they are just activated
         on use and deactived when finished and are reused. this is recomended when you are
         creating a lot of objects*/
+        Fireball[FindProjectile()].transform.position = firePoint.position;
+        Fireball[FindProjectile()].GetComponent<FireBall>().SetDirection(Mathf.Sign(transform.localScale.x));
     }
 
+    private int FindProjectile()
+    {
+        for (int i = 0;i < Fireball.Length; i++)
+        {
+            if (!Fireball[i].activeInHierarchy)
+            return i;
+        }
+        return 0;
+    }
 }
