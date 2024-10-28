@@ -2,3 +2,7 @@
 /Logs
 /Temp
 *.log
+Assembly-CSharp.csproj
+*.log
+/Logs
+Assembly-CSharp.csproj
