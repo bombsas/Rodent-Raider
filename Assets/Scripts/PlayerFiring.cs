@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerFiring : MonoBehaviour
 {
     [SerializeField] private float attackCooldown;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject[] Fireball;
     private Animator anim;
     private PlayerMovement playerMovement;
     private float coolDownTimer = Mathf.Infinity;
@@ -34,6 +37,8 @@ public class PlayerFiring : MonoBehaviour
         means multiple projectile objects are already created and they are just activated
         on use and deactived when finished and are reused. this is recomended when you are
         creating a lot of objects*/
+        Fireball[0].transform.position = firePoint.position;
+        Fireball[0].GetComponent<FireBall>().SetDirection(Mathf.Sign(transform.localScale.x));
     }
 
 }
