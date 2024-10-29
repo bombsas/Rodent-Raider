@@ -11,9 +11,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float dashcount;
-    [SerializeField] private float dashcooldown;
+    [SerializeField] private float dashLifeTime;
     [SerializeField] private float dashcooldownTime;
     [SerializeField] private float dashSpeed;
+    private float dashDirection;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -32,7 +33,8 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         //setting horizontal input at beginning to be able to dash off start
-        HorizontalInput = 1;
+        dashDirection = 1;
+        dashLifeTime = 1;
     }
     /*
     This update will check every frame of the game and call
@@ -45,9 +47,11 @@ public class PlayerMovement : MonoBehaviour
         HorizontalInput = 0;
         if(Input.GetKey(KeyCode.LeftArrow)){
             HorizontalInput = -1;
+            dashDirection = -1;
         }
         if (Input.GetKey(KeyCode.RightArrow)){
             HorizontalInput = 1;
+            dashDirection = 1;
         }
         
 
@@ -98,9 +102,13 @@ public class PlayerMovement : MonoBehaviour
             { Jump(); }
                 
             
-            if (Input.GetKey(KeyCode.LeftShift)){
+            if (Input.GetKeyDown(KeyCode.LeftShift)){
+                dashLifeTime = 0;
+            }
+            else{
                 Dash();
             }
+            
         }
         else{
             wallJumpCoolDown += Time.deltaTime;
@@ -165,6 +173,11 @@ to attack.
     }
 
     private void Dash(){
-        body.velocity = new Vector2(HorizontalInput * dashSpeed, body.velocity.y);
+        if (dashLifeTime < 0.3)
+        {
+            body.velocity = new Vector2(dashDirection * dashSpeed, body.velocity.y);
+            dashLifeTime += Time.deltaTime;
+        }
+
     }
 }
