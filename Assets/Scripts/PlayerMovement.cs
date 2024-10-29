@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float dashcount;
-    [SerializeField] private float dashLifeTime;
-    [SerializeField] private float dashcooldownTime;
+    [SerializeField] private float dashLifeTimeMax;
+    [SerializeField] private float dashCooldownTimeMax;
     [SerializeField] private float dashSpeed;
     private float dashDirection;
+    private float dashLifeTime;
+    private float dashCooldownTimer;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -104,9 +106,14 @@ public class PlayerMovement : MonoBehaviour
             
             if (Input.GetKeyDown(KeyCode.LeftShift)){
                 dashLifeTime = 0;
+                dashcount -=1;
             }
             else{
-                Dash();
+                if (dashcount != 0){
+                    
+                    Dash();
+                }
+                
             }
             
         }
@@ -173,7 +180,7 @@ to attack.
     }
 
     private void Dash(){
-        if (dashLifeTime < 0.1)
+        if (dashLifeTime < dashLifeTimeMax)
         {
             body.velocity = new Vector2(dashDirection * dashSpeed, body.velocity.y);
             dashLifeTime += Time.deltaTime;
