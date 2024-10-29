@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        //setting horizontal input at beginning to be able to dash off start
+        HorizontalInput = 1;
     }
     /*
     This update will check every frame of the game and call
@@ -93,7 +95,12 @@ public class PlayerMovement : MonoBehaviour
             }
 
             if (Input.GetKey(KeyCode.Space))
-                Jump();
+            { Jump(); }
+                
+            
+            if (Input.GetKey(KeyCode.LeftShift)){
+                Dash();
+            }
         }
         else{
             wallJumpCoolDown += Time.deltaTime;
@@ -158,6 +165,6 @@ to attack.
     }
 
     private void Dash(){
-        
+        body.velocity = new Vector2(HorizontalInput * dashSpeed, body.velocity.y);
     }
 }
