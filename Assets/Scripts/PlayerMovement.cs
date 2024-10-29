@@ -173,7 +173,7 @@ to attack.
     }
 
     private void Dash(){
-        if (dashLifeTime < 0.3)
+        if (dashLifeTime < 0.1)
         {
             body.velocity = new Vector2(dashDirection * dashSpeed, body.velocity.y);
             dashLifeTime += Time.deltaTime;

@@ -2913,9 +2913,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   dashcount: 0
-  dashcooldown: 0
+  dashLifeTime: 0
   dashcooldownTime: 0
-  dashSpeed: 0
+  dashSpeed: 100
 --- !u!95 &1834844791
 Animator:
   serializedVersion: 5
