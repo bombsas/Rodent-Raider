@@ -2025,7 +2025,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.010109946}
+  m_Offset: {x: 0, y: -0.029871985}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2036,7 +2036,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.02, y: 0.98978007}
+  m_Size: {x: 4.02, y: 0.950256}
   m_EdgeRadius: 0
 --- !u!212 &1503719207
 SpriteRenderer:
@@ -2764,10 +2764,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 45.17346
+  m_Mass: 38.323353
   m_LinearDrag: 5
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 15
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2879,7 +2879,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.10534859, y: 0.084576726}
+  m_Offset: {x: -0.01143527, y: -0.9091401}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2890,7 +2890,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.333269, y: 5.123683}
+  m_Size: {x: 8.099701, y: 4.4720726}
   m_EdgeRadius: 0
 --- !u!114 &1834844790
 MonoBehaviour:
@@ -2905,7 +2905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  jumpPower: 10
+  jumpPower: 70
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2914,7 +2914,7 @@ MonoBehaviour:
     m_Bits: 128
   dashcount: 3
   dashLifeTimeMax: 0.1
-  dashcooldownTime: 1
+  dashCooldownTimeMax: 5
   dashSpeed: 100
 --- !u!95 &1834844791
 Animator:

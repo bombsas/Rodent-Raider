@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private float dashDirection;
     private float dashLifeTime;
     private float dashCooldownTimer;
+    private bool dashpressed;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         //setting horizontal input at beginning to be able to dash off start
         dashDirection = 1;
         dashLifeTime = 1;
+        dashpressed = false;
+        
     }
     /*
     This update will check every frame of the game and call
@@ -47,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         // this line allows for wasd and arrow keys
         //HorizontalInput = Input.GetAxis("Horizontal");
         HorizontalInput = 0;
-        if(Input.GetKey(KeyCode.LeftArrow)){
+        if (Input.GetKey(KeyCode.LeftArrow)){
             HorizontalInput = -1;
             dashDirection = -1;
         }
@@ -55,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
             HorizontalInput = 1;
             dashDirection = 1;
         }
-        
 
         //flips player when moving left or right
         //this for moving right
@@ -64,9 +66,6 @@ public class PlayerMovement : MonoBehaviour
         //this for moving left
         else if (HorizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
-        
-
-        
 
         //set animator parameters
         // Run is set at not 0 so that it will not be 
@@ -93,11 +92,11 @@ public class PlayerMovement : MonoBehaviour
 
             if(onWall() && !isGrounded())
             {
-                body.gravityScale = 0;
+                body.gravityScale = 2;
                 body.velocity = Vector2.zero;
             }
             else{
-                body.gravityScale = 3;
+                body.gravityScale = 10;
             }
 
             if (Input.GetKey(KeyCode.Space))
@@ -106,13 +105,23 @@ public class PlayerMovement : MonoBehaviour
             
             if (Input.GetKeyDown(KeyCode.LeftShift)){
                 dashLifeTime = 0;
-                dashcount -=1;
+                dashpressed = true;
+                
+
             }
             else{
-                if (dashcount != 0){
-                    
+                if (dashcount > 0){  
                     Dash();
+                    if (dashpressed == true)
+                    {
+                        dashcount -= 1;
+                        dashpressed = false;
+                    }
                 }
+            
+            if (dashcount != 3){
+                DashCooldown();
+            }
                 
             }
             
@@ -180,11 +189,15 @@ to attack.
     }
 
     private void Dash(){
-        if (dashLifeTime < dashLifeTimeMax)
+        if (dashLifeTime <= dashLifeTimeMax)
         {
             body.velocity = new Vector2(dashDirection * dashSpeed, body.velocity.y);
             dashLifeTime += Time.deltaTime;
         }
+
+    }
+
+    private void DashCooldown(){
 
     }
 }
