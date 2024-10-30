@@ -110,13 +110,14 @@ public class PlayerMovement : MonoBehaviour
 
             }
             else{
-                if (dashcount > 0){  
+                if (dashcount > 0 && dashpressed == true)
+                {  
                     Dash();
-                    if (dashpressed == true)
-                    {
-                        dashcount -= 1;
-                        dashpressed = false;
-                    }
+                    dashpressed = false;
+                    dashcount -= 1;
+                }
+                else{
+                    dashpressed = false;
                 }
             
             if (dashcount != 3){
@@ -198,6 +199,12 @@ to attack.
     }
 
     private void DashCooldown(){
-
+        if (dashCooldownTimer > dashCooldownTimeMax){
+            dashCooldownTimer = 0;
+            dashcount += 1;
+        }
+        else{
+            dashCooldownTimer += Time.deltaTime;
+        }
     }
 }
