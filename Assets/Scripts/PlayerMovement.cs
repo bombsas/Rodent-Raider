@@ -77,12 +77,12 @@ public class PlayerMovement : MonoBehaviour
         if (wallJumpCoolDown > 0.1f)
         {
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow) && dashpressed == false)
             {
                 HorizontalInput = -1;
                 body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
             }
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow) && dashpressed == false)
             {
                 HorizontalInput = 1;
                 body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
@@ -103,27 +103,14 @@ public class PlayerMovement : MonoBehaviour
             { Jump(); }
                 
             
-            if (Input.GetKeyDown(KeyCode.LeftShift)){
+            if (Input.GetKeyDown(KeyCode.LeftShift) && dashpressed == false && dashcount > 0){
                 dashLifeTime = 0;
                 dashpressed = true;
-                
-
+                StartCoroutine(Dash());
             }
-            else{
-                if (dashcount > 0 && dashpressed == true)
-                {  
-                    Dash();
-                    dashpressed = false;
-                    dashcount -= 1;
-                }
-                else{
-                    dashpressed = false;
-                }
-            
+
             if (dashcount != 3){
                 DashCooldown();
-            }
-                
             }
             
         }
@@ -189,12 +176,12 @@ to attack.
         return HorizontalInput == 0 && isGrounded() && !onWall();
     }
 
-    private void Dash(){
-        if (dashLifeTime <= dashLifeTimeMax)
-        {
-            body.velocity = new Vector2(dashDirection * dashSpeed, body.velocity.y);
-            dashLifeTime += Time.deltaTime;
-        }
+    private IEnumerator Dash(){
+        body.velocity = new Vector2(dashDirection * dashSpeed, body.velocity.y);
+        dashLifeTime += Time.deltaTime;
+        yield return new WaitForSeconds(dashLifeTimeMax);
+        dashpressed = false;
+        dashcount -= 1;
 
     }
 
