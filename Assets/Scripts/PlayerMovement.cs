@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
                 // the first parameter is how far the player is pushed away from the wall
                 // second parameter is how high they get pushed up
                 */
-                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 6);
+                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 50, 50);
             }
             wallJumpCoolDown = 0;
             
