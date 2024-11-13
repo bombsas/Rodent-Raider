@@ -11,9 +11,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float dashcount;
-    [SerializeField] private float dashcooldown;
-    [SerializeField] private float dashcooldownTime;
+    [SerializeField] private float dashLifeTimeMax;
+    [SerializeField] private float dashCooldownTimeMax;
     [SerializeField] private float dashSpeed;
+    private float dashDirection;
+    private float dashLifeTime;
+    private float dashCooldownTimer;
+    private bool dashpressed;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -31,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        //setting horizontal input at beginning to be able to dash off start
+        dashDirection = 1;
+        dashLifeTime = 1;
+        dashpressed = false;
+        
     }
     /*
     This update will check every frame of the game and call
@@ -41,13 +50,14 @@ public class PlayerMovement : MonoBehaviour
         // this line allows for wasd and arrow keys
         //HorizontalInput = Input.GetAxis("Horizontal");
         HorizontalInput = 0;
-        if(Input.GetKey(KeyCode.LeftArrow)){
+        if (Input.GetKey(KeyCode.LeftArrow)){
             HorizontalInput = -1;
+            dashDirection = -1;
         }
         if (Input.GetKey(KeyCode.RightArrow)){
             HorizontalInput = 1;
+            dashDirection = 1;
         }
-        
 
         //flips player when moving left or right
         //this for moving right
@@ -56,9 +66,6 @@ public class PlayerMovement : MonoBehaviour
         //this for moving left
         else if (HorizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
-        
-
-        
 
         //set animator parameters
         // Run is set at not 0 so that it will not be 
@@ -70,12 +77,12 @@ public class PlayerMovement : MonoBehaviour
         if (wallJumpCoolDown > 0.1f)
         {
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow) && dashpressed == false)
             {
                 HorizontalInput = -1;
                 body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
             }
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow) && dashpressed == false)
             {
                 HorizontalInput = 1;
                 body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
@@ -85,15 +92,27 @@ public class PlayerMovement : MonoBehaviour
 
             if(onWall() && !isGrounded())
             {
-                body.gravityScale = 0;
+                body.gravityScale = 2;
                 body.velocity = Vector2.zero;
             }
             else{
-                body.gravityScale = 3;
+                body.gravityScale = 10;
             }
 
             if (Input.GetKey(KeyCode.Space))
-                Jump();
+            { Jump(); }
+                
+            
+            if (Input.GetKeyDown(KeyCode.LeftShift) && dashpressed == false && dashcount > 0){
+                dashLifeTime = 0;
+                dashpressed = true;
+                StartCoroutine(Dash());
+            }
+
+            if (dashcount != 3){
+                DashCooldown();
+            }
+            
         }
         else{
             wallJumpCoolDown += Time.deltaTime;
@@ -157,7 +176,22 @@ to attack.
         return HorizontalInput == 0 && isGrounded() && !onWall();
     }
 
-    private void Dash(){
-        
+    private IEnumerator Dash(){
+        body.velocity = new Vector2(dashDirection * dashSpeed, body.velocity.y);
+        dashLifeTime += Time.deltaTime;
+        yield return new WaitForSeconds(dashLifeTimeMax);
+        dashpressed = false;
+        dashcount -= 1;
+
+    }
+
+    private void DashCooldown(){
+        if (dashCooldownTimer > dashCooldownTimeMax){
+            dashCooldownTimer = 0;
+            dashcount += 1;
+        }
+        else{
+            dashCooldownTimer += Time.deltaTime;
+        }
     }
 }
