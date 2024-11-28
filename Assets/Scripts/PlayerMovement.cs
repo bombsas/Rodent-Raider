@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         //setting horizontal input at beginning to be able to dash off start
         dashDirection = 1;
-        dashLifeTime = 1;
         dashpressed = false;
         
     }
@@ -104,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
                 
             
             if (Input.GetKeyDown(KeyCode.LeftShift) && dashpressed == false && dashcount > 0){
-                dashLifeTime = 0;
                 dashpressed = true;
                 StartCoroutine(Dash());
             }
@@ -176,9 +174,12 @@ to attack.
         return HorizontalInput == 0 && isGrounded() && !onWall();
     }
 
+    /*
+    IEumerator just stops all processes until the function returns a True
+    */
     private IEnumerator Dash(){
         body.velocity = new Vector2(dashDirection * dashSpeed, body.velocity.y);
-        dashLifeTime += Time.deltaTime;
+        // yield forces the program to wait for a return
         yield return new WaitForSeconds(dashLifeTimeMax);
         dashpressed = false;
         dashcount -= 1;
