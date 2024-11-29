@@ -41,7 +41,12 @@ public class Health : MonoBehaviour
         }
 
     }
-    
+    public void beenDamaged(){
+        gothit = true;
+        Debug.Log("You got hit!!");
+        StartCoroutine(DamagedTaken());
+       
+    }
     public IEnumerator DamagedTaken(){
         // Reset the counter and timer
         float timer = 0f;
