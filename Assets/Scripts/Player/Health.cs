@@ -33,12 +33,6 @@ public class Health : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            gothit = true;
-            Debug.Log("You got hit!!");
-            StartCoroutine(DamagedTaken());
-        }
 
     }
     public void beenDamaged(){
