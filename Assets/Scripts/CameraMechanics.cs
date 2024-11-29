@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class CameraMechanics : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float cam_speed;
+    private float currentPosX;
+    private Vector3 velocity = Vector3.zero;
+
+    //follow player
+    [SerializeField] private Transform player;
+
+    private void update()
     {
-        
+        //room camera
+        //transform.position = Vector3.SmoothDamp( transform.position, new Vector3(currentPosX, transform.position.y, transform.position.z), ref velocity, cam_speed * Time.deltaTime );
+        //follow player
+        transform.position = new Vector3(player.position.x, transform.position.y,transform.position.z);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveToNewRoom(Transform _newRoom)
     {
-        
+
     }
 }
