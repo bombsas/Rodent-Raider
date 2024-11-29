@@ -13,8 +13,8 @@ public class PestControlMovement : MonoBehaviour
 
     private void Awake()
     {
-        leftEdge = transform.position.x - movementDistance;
-        rightEdge = transform.position.y + movementDistance;
+        leftEdge = transform.position.x;
+        rightEdge = transform.position.x + movementDistance;
     }
 
     private void Update()
@@ -24,7 +24,7 @@ public class PestControlMovement : MonoBehaviour
             if (transform.position.x > leftEdge)
             {
                 transform.position = new Vector3(transform.position.x - movementSpeed * Time.deltaTime, transform.position.y, transform.position.z);
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(-1, 1, 1);
             }
             else
             {
@@ -36,7 +36,7 @@ public class PestControlMovement : MonoBehaviour
             if (transform.position.x < rightEdge)
             {
                 transform.position = new Vector3(transform.position.x + movementSpeed * Time.deltaTime, transform.position.y, transform.position.z);
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(1, 1, 1);
             }
             else
             {

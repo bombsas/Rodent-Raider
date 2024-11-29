@@ -64,10 +64,16 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.47f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlayerFiring.cs" />
-    <Compile Include="Assets\Scripts\PlayerAttack.cs" />
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\fireBall.cs" />
+    <Compile Include="Assets\Scripts\Enemies\PestControlHealth.cs" />
+    <Compile Include="Assets\Scripts\Enemies\PestControlAttack.cs" />
+    <Compile Include="Assets\Scripts\Enemies\EnemySideways.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerAttack.cs" />
+    <Compile Include="Assets\Scripts\Player\Health.cs" />
+    <Compile Include="Assets\Scripts\Enemies\PestControlMovement.cs" />
+    <Compile Include="Assets\Scripts\Player\fireBall.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerFiring.cs" />
+    <Compile Include="Assets\Scripts\Door.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\CameraMechanics.cs" />
   </ItemGroup>
   <ItemGroup>
