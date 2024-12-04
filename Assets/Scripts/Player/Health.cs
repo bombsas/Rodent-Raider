@@ -67,7 +67,6 @@ public class Health : MonoBehaviour
         {
             Debug.Log("You pressed the spacebar "+ MashNumber + " times! You Survived!");
             MashNumber = MashNumber * 2;
-            gothit = false;
             StartCoroutine(Invulnerability());
         }
         else
@@ -90,6 +89,7 @@ public class Health : MonoBehaviour
         }
         //Invulnerability
         Physics2D.IgnoreLayerCollision(8, 9, false);
+        gothit = false;
     }
 }
 
