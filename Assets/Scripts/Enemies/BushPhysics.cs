@@ -27,6 +27,8 @@ public class BushPhysics : MonoBehaviour
     //     RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.01f, BushLayer);
     //     return raycastHit.collider != null;
     // }
+
+    //problem when hit and try to retreat into bush once not invulnerable it immediatley always to be hit even within bush
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")

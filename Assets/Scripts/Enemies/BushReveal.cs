@@ -20,9 +20,11 @@ public class BushReveal : MonoBehaviour
         if (collision.tag == "Player")
         {
             bool stunned = collision.GetComponent<Health>().gothitcheck;
-            if (stunned == false)
+            bool invci = collision.GetComponent<Health>().gotinvinciblecheck;
+            if (stunned == false && invci == false){
                 Debug.Log("Bush reveal trigger");
                 Physics2D.IgnoreLayerCollision(8, 9, false);
+            }
         }
     }
 }
