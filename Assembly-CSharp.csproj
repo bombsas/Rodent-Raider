@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Player\Health.cs" />
     <Compile Include="Assets\Scripts\Enemies\PestControlMovement.cs" />
     <Compile Include="Assets\Scripts\Audio\Jump.cs" />
+    <Compile Include="Assets\Scripts\Main Menu.cs" />
     <Compile Include="Assets\Scripts\Player\fireBall.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerFiring.cs" />
     <Compile Include="Assets\Scripts\Audio\Movement.cs" />
