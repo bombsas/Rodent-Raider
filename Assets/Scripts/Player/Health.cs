@@ -15,6 +15,18 @@ public class Health : MonoBehaviour
 
     public bool gothit = false;
 
+    public bool isinvincible = false;
+    public bool gotinvinciblecheck{
+        get { return isinvincible; }
+
+        set{
+            if(isinvincible != value){
+                isinvincible = value;
+            }
+
+        }
+    }
+
     public bool gothitcheck{
         get{ 
             return gothit; 
@@ -52,7 +64,6 @@ public class Health : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 currentMashNumber++;
-                Debug.Log("Spacebar pressed! Count: " + currentMashNumber);
             }
 
             // Increment the timer
@@ -66,9 +77,10 @@ public class Health : MonoBehaviour
         if (currentMashNumber >= MashNumber)
         {
             Debug.Log("You pressed the spacebar "+ MashNumber + " times! You Survived!");
-            MashNumber = MashNumber * 2;
+            MashNumber = MashNumber;
             gothit = false;
             StartCoroutine(Invulnerability());
+            
         }
         else
         {
@@ -80,6 +92,7 @@ public class Health : MonoBehaviour
 
     private IEnumerator Invulnerability()
     {
+        isinvincible = true;
         Physics2D.IgnoreLayerCollision(8, 9, true);
         for (int i = 0; i < numberOfFlashes; i++)
         {
@@ -90,6 +103,8 @@ public class Health : MonoBehaviour
         }
         //Invulnerability
         Physics2D.IgnoreLayerCollision(8, 9, false);
+        isinvincible = false;
+        
     }
 }
 
