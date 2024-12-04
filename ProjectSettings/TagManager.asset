@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Ground
   - Wall
-  - Bush
   layers:
   - Default
   - TransparentFX
@@ -18,7 +17,7 @@ TagManager:
   - Wall
   - Player
   - Enemy
-  - Bush
+  - 
   - 
   - 
   - 
