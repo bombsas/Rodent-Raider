@@ -27,6 +27,20 @@ public class Health : MonoBehaviour
             } 
             }
     }
+    public bool isinvincible = false;
+    public bool gotinvinciblecheck
+    {
+        get { return isinvincible; }
+
+        set
+        {
+            if (isinvincible != value)
+            {
+                isinvincible = value;
+            }
+
+        }
+    }
     private void Awake()
     {
         spriterend = GetComponent<SpriteRenderer>();
@@ -80,6 +94,7 @@ public class Health : MonoBehaviour
 
     private IEnumerator Invulnerability()
     {
+        isinvincible = true;
         Physics2D.IgnoreLayerCollision(8, 9, true);
         for (int i = 0; i < numberOfFlashes; i++)
         {
@@ -90,6 +105,7 @@ public class Health : MonoBehaviour
         }
         //Invulnerability
         Physics2D.IgnoreLayerCollision(8, 9, false);
+        isinvincible = false;
     }
 }
 
